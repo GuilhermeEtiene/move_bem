@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atividades</title>
+  <!-- Link do Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    .activity-item {
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .logo {
+      max-width: 200px;
+      /* Ajuste o tamanho da logo conforme necessário */
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="d-flex align-items-center mb-4">
+      <img src="move_bem_logo.png" alt="Logo" class="logo me-4">
+    </div>
+    <div class="form-group">
+      <select id="activityDropdown" class="form-control">
+        <option value="">Selecione...</option>
+      </select>
+    </div>
+
+    <div id="activityDetails" class="activity-list mt-4"></div>
+  </div>
+
+  <script>
+    // Array com as atividades
+    const atividades = [
+      { atividade: "ACADEMIA AR LIVRE", local: "BNH", dias: "2ª e 4ª", horarios: "7:30/9:30" },
+      { atividade: "ACADEMIA AR LIVRE", local: "BNH", dias: "2ª e 4ª", horarios: "17:30/20:30" },
+      { atividade: "ACADEMIA AR LIVRE", local: "REGO CARRAPATOS", dias: "SABADO", horarios: "8:00/10:00" },
+      { atividade: "ACADEMIA AR LIVRE", local: "REGO CARRAPATOS", dias: "DOMINGO", horarios: "8:00/10:00" },
+      { atividade: "ACADEMIA AR LIVRE", local: "BANQUETA AGUA DE COCO", dias: "2ª e 4ª", horarios: "6:00/8:00" },
+      { atividade: "ACADEMIA AR LIVRE", local: "CAMPO MONTANHES", dias: "2ª e 4ª", horarios: "8:15/10:15" },
+      { atividade: "ACADEMIA AR LIVRE", local: "ESC VELHA MACACOS", dias: "3ª e 5ª", horarios: "18:30/20:30" },
+      { atividade: "ACADEMIA AR LIVRE", local: "ESC NOVA MACACOS", dias: "3ª e 5ª", horarios: "20:30/22:30" },
+      { atividade: "ACADEMIA AR LIVRE", local: "BANQUETA PENEIRA", dias: "2ª e 4ª", horarios: "18:00/20:00" },
+      { atividade: "ACADEMIA AR LIVRE", local: "PRAÇA BOA VISTA", dias: "2ª e 4ª", horarios: "17:00/19:00" },
+      { atividade: "ACADEMIA AR LIVRE", local: "GALO", dias: "2ª e 4ª", horarios: "7:00/8:45" },
+      { atividade: "ACADEMIA AR LIVRE", local: "SANTA RITA", dias: "3ª e 5ª", horarios: "7:00/9:00" },
+      { atividade: "ACADEMIA AR LIVRE", local: "ESPAÇO CULTURAL", dias: "3ª e 5ª", horarios: "7:00/9:00" },
+      { atividade: "ACADEMIA AR LIVRE", local: "ESPAÇO CULTURAL", dias: "3ª e 5ª", horarios: "19:00/21:00" },
+      { atividade: "ACADEMIA AR LIVRE", local: "ESPAÇO CULTURAL", dias: "2ª e 4ª", horarios: "7:00/9:00" },
+      { atividade: "ACADEMIA AR LIVRE", local: "ESPAÇO CULTURAL", dias: "2ª e 4ª", horarios: "19:00/21:00" },
+      { atividade: "ACADEMIA AR LIVRE", local: "BANQUETA AGUA DE COCO", dias: "2ª e 4ª", horarios: "17:00/21:00" },
+      { atividade: "AERODANCE", local: "POLI CABECEIRAS", dias: "2ª e 4ª", horarios: "19:00/19:45" },
+      { atividade: "AERODANCE", local: "SALAO QD JOSE DE ALMEIDA", dias: "2ª e 4ª", horarios: "20:00/20:45" },
+      { atividade: "AERODANCE", local: "PARQUE AURILANDIA", dias: "3ª e 5ª", horarios: "20:00/20:45" },
+      { atividade: "AERODANCE", local: "QD GALO", dias: "2ª e 4ª", horarios: "19:00/19:45" },
+      { atividade: "AERODANCE", local: "NOVA SUIÇA", dias: "2ª e 4ª", horarios: "20:00/20:45" },
+      { atividade: "AERODANCE", local: "QD CARIOCAS", dias: "3ª e 5ª", horarios: "20:00/20:45" },
+      { atividade: "AERODANCE", local: "QD MINA D'AGUA", dias: "3ª e 5ª", horarios: "19:00/19:45" },
+      { atividade: "AERODANCE", local: "QD CRUZEIRO", dias: "2ª e 4ª", horarios: "18:30/19:15" },
+      { atividade: "AERODANCE", local: "POLI CRISTAIS", dias: "2ª e 4ª", horarios: "19:30/20:15" },
+      { atividade: "AERODANCE", local: "QD BICALHO", dias: "3ª e 5ª", horarios: "19:30/20:15" },
+      { atividade: "AERODANCE", local: "QD SANTA RITA", dias: "3ª e 5ª", horarios: "20:30/21:15" },
+      { atividade: "AERODANCE", local: "VILA SÃO LUIS", dias: "2ª e 4ª", horarios: "19:00/19:45" },
+      { atividade: "AERODANCE", local: "SEDE MATADOURO", dias: "2ª e 4ª", horarios: "18:00/18:45" },
+      { atividade: "AERODANCE", local: "ACADÊMICO", dias: "3ª e 5ª", horarios: "18:45/19:30" },
+      { atividade: "AERODANCE", local: "QD ESCOLA BELA FAMA", dias: "2ª e 4ª", horarios: "20:00/21:00" },
+      { atividade: "AERODANCE", local: "QD MINGU", dias: "3ª e 5ª", horarios: "20:30" },
+      { atividade: "AERODANCE", local: "MONTE CASTELO", dias: "3ª e 5ª", horarios: "19:00" },
+      { atividade: "AERODANCE", local: "POLI JD CANADA", dias: "2ª e 4ª", horarios: "19:00/19:45" },
+      { atividade: "AERODANCE", local: "QD BELA FAMA", dias: "2ª e 4ª", horarios: "19:00" },
+      { atividade: "AERODANCE", local: "MACACOS", dias: "3ª e 5ª", horarios: "19:00/19:45" },
+      { atividade: "AERODANCE", local: "ESPAÇO CULTURAL", dias: "3ª e 5ª", horarios: "17:30/18:15" },
+      { atividade: "ASS.CORRIDA", local: "MONTANHES", dias: "2ª e 4ª", horarios: "17:40/20:40" },
+      { atividade: "ASS.CORRIDA", local: "OSVALDÃO", dias: "2ª e 4ª", horarios: "18:00/21:00" },
+      { atividade: "ASS.CORRIDA", local: "ESPAÇO CULTURAL", dias: "3ª e 5ª", horarios: "18:00/21:00" },
+      { atividade: "ASS.CORRIDA", local: "ESPAÇO CULTURAL", dias: "2ª e 4ª", horarios: "6:00/9:00" },
+      { atividade: "ASS.CORRIDA", local: "TREVO MG30", dias: "2ª e 4ª", horarios: "17:00/20:00" },
+      { atividade: "ASS.CORRIDA", local: "TREVO MG30", dias: "3ª e 5ª", horarios: "18:00/21:00" },
+      { atividade: "ASS.CORRIDA", local: "BANQUETA", dias: "3ª e 5ª", horarios: "6:00/9:00" },
+      { atividade: "ASS.CORRIDA", local: "JARDIM CANADA", dias: "3ª e 5ª", horarios: "17:00/20:00" },
+      { atividade: "ASS.CORRIDA", local: "MONTANHES", dias: "2ª e 4ª", horarios: "6:00/9:00" },
+      { atividade: "ASS.CORRIDA", local: "PRAÇA BICALHO", dias: "2ª e 4ª", horarios: "18:00/21:00" },
+      { atividade: "ASS.CORRIDA", local: "CAMPO NOVA SUIÇA", dias: "2ª e 4ª", horarios: "18:00/21:00" },
+      { atividade: "BASQUETE", local: "POLI CRISTAIS", dias: "2ª e 4ª", horarios: "19:30/21:00" },
+      { atividade: "CAPOEIRA", local: "ASSOC.BELA FAMA", dias: "3ª e 5ª", horarios: "18:30/19:30" },
+      { atividade: "CAPOEIRA", local: "BOA VISTA", dias: "3ª e 5ª", horarios: "17:30/18:30" },
+      { atividade: "CAPOEIRA", local: "MINGU", dias: "2ª e 4ª", horarios: "17:30/18:30" },
+      { atividade: "CAPOEIRA", local: "SANTA RITA - CONTINENTAL", dias: "2ª e 4ª" },
+      { atividade: "CAPOEIRA", local: "NOVA SUIÇA", dias: "2ª e 4ª" },
+      { atividade: "FUNCIONAL", local: "POLI CRISTAIS", dias: "3ª e 5ª", horarios: "18:30/19:30" },
+      { atividade: "FUNCIONAL", local: "POLI CRISTAIS", dias: "3ª e 5ª", horarios: "19:30/20:30" },
+      { atividade: "FUNCIONAL", local: "POLI CABECEIRAS", dias: "2ª e 4ª", horarios: "17:30/18:30" },
+      { atividade: "FUNCIONAL", local: "PARQUE AURILANDIA", dias: "2ª e 4ª", horarios: "18:00/19:00" },
+      { atividade: "FUTEBOL CAMPO", local: "CAMPO OLARIA", dias: "3ª e 5ª", horarios: "14:30/16:00" },
+      { atividade: "FUTEBOL CAMPO", local: "CAMPO MONTANHES", dias: "2ª e 4ª", horarios: "8:00/10:00" },
+      { atividade: "FUTEBOL CAMPO", local: "NOVA SUIÇA", dias: "3ª e 5ª", horarios: "8:00/10:00" },
+      { atividade: "FUTEBOL CAMPO", local: "NOVA SUIÇA", dias: "2ª e 4ª", horarios: "16:00/18:00" },
+      { atividade: "FUTEBOL CAMPO", local: "CAMPO OLARIA", dias: "3ª e 5ª", horarios: "8:30/10:00" },
+      { atividade: "FUTSAL", local: "HONORIO BICALHO", dias: "2ª e 4ª", horarios: "18:00/20:00" },
+      { atividade: "FUTSAL", local: "POLI CRISTAIS", dias: "2ª e 4ª", horarios: "18:00/19:00" },
+      { atividade: "FUTSAL", local: "POLI CRISTAIS", dias: "2ª e 4ª", horarios: "19:00/20:00" },
+      { atividade: "FUTSAL", local: "POLI CRISTAIS", dias: "3ª e 5ª", horarios: "18:00/19:00" },
+      { atividade: "FUTSAL", local: "POLI CRISTAIS", dias: "3ª e 5ª", horarios: "19:00/20:00" },
+      { atividade: "FUTSAL", local: "POLI CRISTAIS", dias: "3ª e 5ª", horarios: "20:00/21:00" },
+      { atividade: "FUTSAL", local: "QD MATADOURO", dias: "3ª e 5ª", horarios: "18:00/19:00" },
+      { atividade: "FUTSAL", local: "QD MATADOURO", dias: "3ª e 5ª", horarios: "19:00/20:00" },
+      { atividade: "FUTSAL", local: "QD MATADOURO", dias: "3ª e 5ª", horarios: "20:00/21:00" },
+      { atividade: "FUTSAL", local: "POLI JD CANADA", dias: "3ª e 5ª", horarios: "17:00/19:00" },
+      { atividade: "FUTSAL", local: "SANTA RITA", dias: "3ª e 5ª", horarios: "18:00/20:00" },
+      { atividade: "FUTSAL", local: "SANTA RITA", dias: "3ª e 5ª", horarios: "9:00/10:00" },
+      { atividade: "FUTSAL", local: "SANTA RITA", dias: "2ª e 4ª", horarios: "17:00/18:00" },
+      { atividade: "FUTSAL", local: "POLI CRISTAIS", dias: "3ª e 5ª", horarios: "9:00/10:30" },
+      { atividade: "FUTSAL", local: "POLI CRISTAIS", dias: "3ª e 5ª", horarios: "15:00/17:00" },
+      { atividade: "FUTSAL", local: "MINA D'AGUA", dias: "3ª e DOM", horarios: "18:00/20:00" },
+      { atividade: "FUTSAL", local: "MINA D'AGUA*", dias: "3ª e DOM", horarios: "9:00/11:00" },
+      { atividade: "FUTSAL", local: "PQ AURILANDIA", dias: "3ª e 5ª", horarios: "8:15/9:15" },
+      { atividade: "FUTSAL", local: "ALIELTON", dias: "2ª e 4ª", horarios: "8:15/9:15" },
+      { atividade: "FUTSAL", local: "ALIELTON", dias: "2ª e 4ª", horarios: "9:15/10:15" },
+      { atividade: "FUTSAL", local: "PQ AURILANDIA", dias: "3ª e 5ª", horarios: "16:15/17:15" },
+      { atividade: "FUTSAL FEMININO", local: "ALIELTON", dias: "3ª e 5ª", horarios: "9:30/10:30" },
+      { atividade: "FUTSAL FEMININO", local: "ALIELTON", dias: "2ª e 4ª", horarios: "16:30/17:30" },
+      { atividade: "JIU JITSU", local: "SEDE MATADOURO", dias: "2ª e 4ª", horarios: "19:00/21:00" },
+      { atividade: "JIU JITSU", local: "SEDE MORRO VELHO", dias: "3ª e 5ª", horarios: "18:30/21:30" },
+      { atividade: "JIU JITSU", local: "CAC HONORIO BICALHO", dias: "3ª e 5ª", horarios: "14:00/16:00" },
+      { atividade: "JIU JITSU", local: "PARQUE AURILANDIA", dias: "3ª e 5ª", horarios: "15:00/16:00" },
+      { atividade: "JIU JITSU", local: "CRISTIANO MACHADO", dias: "3ª e 5ª", horarios: "18:00/20:00" },
+      { atividade: "JIU JITSU", local: "ASSOC. SANTA RITA", dias: "4ª FEIRA", horarios: "14:00/17:00" },
+      { atividade: "JUDÔ", local: "SANTA RITA", dias: "2ª e 5ª", horarios: "19:00/20:00" },
+      { atividade: "JUDÔ", local: "SANTA RITA", dias: "2ª e 5ª", horarios: "20:00/21:00" },
+      { atividade: "JUDÔ", local: "CAC HONORIO BICALHO", dias: "3ª e 5ª", horarios: "17:30/19:30" },
+      { atividade: "JUDÔ", local: "CAC HONORIO BICALHO", dias: "3ª e 5ª", horarios: "19:00/19:50" },
+      { atividade: "JUDÔ", local: "CAC CABECEIRAS", dias: "A DEFINIR", horarios: "A DEFINIR" },
+      { atividade: "JUDÔ", local: "PARQUE AURILANDIA", dias: "2ª e 4ª", horarios: "8:00/10:00" },
+      { atividade: "JUDÔ", local: "PARQUE AURILANDIA", dias: "2ª e 4ª", horarios: "14:00/16:00" },
+      { atividade: "RECREAÇÃO", local: "ESPAÇO CULTURAL", dias: "3ª e 5ª", horarios: "18:00/20:00" },
+      { atividade: "SKATE", local: "QD MATADOURO", dias: "3ª e 5ª", horarios: "18:00/21:00" },
+      { atividade: "SKATE", local: "QD CARIOCAS", dias: "4ª", horarios: "18:00/21:00" },
+      { atividade: "SKATE", local: "QD CARIOCAS", dias: "DOMINGO", horarios: "10:00/12:00" },
+      { atividade: "VOLEI", local: "BNH", dias: "2ª e 4ª", horarios: "17:15/19:00" }
+    ]
+
+    // Função para popular o dropdown com as atividades únicas
+    function populateDropdown() {
+      const dropdown = document.getElementById("activityDropdown");
+      const uniqueActivities = [...new Set(atividades.map(a => a.atividade))];
+
+      uniqueActivities.forEach(activity => {
+        const option = document.createElement("option");
+        option.value = activity;
+        option.textContent = activity;
+        dropdown.appendChild(option);
+      });
+    }
+
+    // Função para exibir os detalhes da atividade selecionada
+    function displayActivityDetails() {
+      const selectedActivity = document.getElementById("activityDropdown").value;
+      const detailsContainer = document.getElementById("activityDetails");
+
+      // Limpa os detalhes anteriores
+      detailsContainer.innerHTML = "";
+
+      // Filtra as atividades pelo valor selecionado
+      const filteredActivities = atividades.filter(a => a.atividade === selectedActivity);
+
+      // Adiciona cada local, dia e horário ao container
+      filteredActivities.forEach(item => {
+        const div = document.createElement("div");
+        div.className = "alert alert-info mb-2";
+        div.innerHTML = `<strong>Local:</strong> ${item.local} | <strong>Dias:</strong> ${item.dias} | <strong>Horários:</strong> ${item.horarios}`;
+        detailsContainer.appendChild(div);
+      });
+    }
+
+    // Popula o dropdown ao carregar a página
+    window.onload = function () {
+      populateDropdown();
+      document.getElementById("activityDropdown").addEventListener("change", displayActivityDetails);
+    };
+  </script>
+</body>
+
+</html>
