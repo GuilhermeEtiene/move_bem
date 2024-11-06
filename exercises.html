@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercícios Físicos em Casa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .exercise-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            max-width: 100%;
+            flex-wrap: wrap;
+        }
+        .exercise-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            width: 300px;
+            height: 300px;
+            cursor: pointer;
+        }
+        .exercise-card:hover {
+            transform: scale(1.05);
+        }
+        .exercise-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 1200px; /* Ajuste de largura máxima */
+            height: auto;
+            max-height: 90%; /* Liberando espaço vertical */
+            overflow: hidden;
+            border-radius: 8px;
+            padding: 10px; /* Espaço extra para evitar o corte da imagem */
+        }
+        .modal-content img {
+            width: 100%;
+            height: auto;
+            max-height: 80vh; /* Controla a altura máxima da imagem */
+            object-fit: contain; /* Garante que a imagem se ajuste sem cortar */
+            border-radius: 8px;
+        }
+
+        /* Close Button Styles */
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #fff;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 30px;
+            font-weight: bold;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+        }
+        .close-button:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <h1>Exercícios Físicos para Fazer em Casa</h1>
+    <div class="exercise-container">
+        <!-- Card 1 -->
+        <div class="exercise-card" onclick="openModal('exercicio1.jpeg')">
+            <img src="exercicio1.jpeg" alt="Exercício 1">
+        </div>
+        <!-- Card 2 -->
+        <div class="exercise-card" onclick="openModal('exercicio2.jpeg')">
+            <img src="exercicio2.jpeg" alt="Exercício 2">
+        </div>
+        <!-- Card 3 -->
+        <div class="exercise-card" onclick="openModal('exercicio3.jpeg')">
+            <img src="exercicio3.jpeg" alt="Exercício 3">
+        </div>
+        <!-- Card 4 -->
+        <div class="exercise-card" onclick="openModal('exercicio4.jpeg')">
+            <img src="exercicio4.jpeg" alt="Exercício 4">
+        </div>
+        <!-- Card 5 -->
+        <div class="exercise-card" onclick="openModal('exercicio5.jpeg')">
+            <img src="exercicio5.jpeg" alt="Exercício 5">
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="close-button" onclick="closeModal()">×</button> <!-- X in the close button -->
+            <img id="modalImage" src="" alt="Imagem Ampliada">
+        </div>
+    </div>
+
+    <script>
+        function openModal(imageSrc) {
+            document.getElementById("modalImage").src = imageSrc;
+            document.getElementById("imageModal").style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById("imageModal").style.display = "none";
+        }
+    </script>
+</body>
+</html>
