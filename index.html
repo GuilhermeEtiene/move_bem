@@ -22,21 +22,35 @@
       max-width: 200px;
     }
     .footer {
-      background-color: #f8f9fa;
-      padding: 20px;
-      margin-top: 30px;
-      text-align: center;
-      font-size: 0.9rem;
-    }
+    padding: 20px;
+    background-color: #f8f8f8;
+}
 
-    .footer h5 {
-      font-size: 1.1rem;
-      margin-bottom: 10px;
-    }
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px; /* Define uma largura máxima para centralizar melhor o conteúdo */
+    margin: 0 auto;
+}
 
-    .footer p {
-      margin: 0;
-    }
+.qr-code img {
+    width: 250px; /* Aumente conforme necessário */
+    height: auto;
+}
+
+.footer-links {
+    text-align: center; /* Centraliza os links verticalmente */
+}
+
+.footer-links a {
+    font-size: 1rem;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
   </style>
 </head>
 
@@ -56,11 +70,19 @@
     <div id="activityDetails" class="activity-list mt-4"></div>
   </div>
   <footer class="footer">
-    <h5>Informações Institucionais SEMEL (Secretária Municipal de Esportes de Nova Lima)</h5>
-    <p><a href="informacoes.html">Informações Institucionais</a></p>
-    <p><a href="calendario.html">Calendário Anual</a></p>
-    <p><a href="exercises.html">Exercícios em Casa</a></p>
-    <p>&copy; 2024 - Secretaria Municipal de Esporte e Lazer - SEMEL, Nova Lima</p>
+    <div class="footer-content">
+      <div class="qr-code">
+        <img src="qr_code.jpeg" alt="QR Code">
+      </div>
+      <div class="footer-links">
+        <h5>Informações Institucionais SEMEL (Secretária Municipal de Esportes de Nova Lima)</h5>
+        <p><a href="informacoes.html">Informações Institucionais</a></p>
+        <p><a href="calendario.html">Calendário Anual</a></p>
+        <p><a href="exercises.html">Exercícios em Casa</a></p>
+        <p>&copy; 2024 - Secretaria Municipal de Esporte e Lazer - SEMEL, Nova Lima</p>
+      </div>
+    </div>
+
   </footer>
 
   <script>
