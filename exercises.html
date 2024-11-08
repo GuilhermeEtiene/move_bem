@@ -111,6 +111,18 @@
     .back-button:hover {
       color: #0056b3;
     }
+
+    .video-section {
+    width: 100%;
+    max-width: 300px; /* Adjust the max width as desired */
+}
+
+.custom-video {
+    width: 100%;
+    height: auto;
+    border-radius: 8px; /* Optional: adds rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: adds a shadow */
+}
     </style>
 </head>
 <body>
@@ -139,6 +151,13 @@
         <div class="exercise-card" onclick="openModal('exercicio5.jpeg')">
             <img src="exercicio5.jpeg" alt="Exercício 5">
         </div>
+    </div>
+
+    <div class="video-section mb-4">
+        <video class="custom-video" controls>
+            <source src="video_exercicio.mp4" type="video/mp4">
+            Seu navegador não suporta o elemento de vídeo.
+        </video>
     </div>
 
     <!-- Modal -->
